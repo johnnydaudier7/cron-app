@@ -32,12 +32,7 @@ const Nav = () => {
             to={tab}
             key={tab}
             onClick={() => handleTabClick(tab)}
-            style={{
-              padding: "10px 20px",
-              cursor: "pointer",
-              borderBottom: activeTab === tab ? "2px solid blue" : "none",
-              fontWeight: activeTab === tab ? "bold" : "normal",
-            }}
+            className={`py-3 px-5 cursor-pointer ${activeTab === tab ? "border-b-2 border-blue-700 font-bold" : "border-none font-normal" }`}
           >
             {tab}
           </NavLink>
