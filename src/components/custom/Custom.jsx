@@ -2,23 +2,29 @@ import React from "react";
 import { FiClock } from "react-icons/fi"
 import { months, daysInMonth} from "../../utils/timeDb";
 
-
 const Custom = ({customData, setCustomData}) => {
 
   const {selectedMonth, selectedMonthDays, selectedWeekDays, selectedMinute, selectedHour} = customData
   const customMonths = months;      
-  const customDaysInMonth = daysInMonth;    
+  const customDaysInMonth = daysInMonth.map((day) => String(day));
+  
 
-  const handleMonthDaySelection = (day) => {
+  const handleMonthDaySelection = (day) => {    
+    
     setCustomData((current) => {
-      const { value } = current.selectedMonthDays;
+      let { value } = current.selectedMonthDays;
+  
+      if (!Array.isArray(value)) {
+        value = [value];
+      }
+
       let newValue;
       if (value.includes(day)) {
-        newValue = value.filter((d) => d !== day);
+        newValue = value.filter((d) => d !== day); 
       } else {
-        newValue = [...value, day].sort((a, b) => a - b);
+        newValue = [...value, day].sort((a, b) => a - b); 
       }
-  
+    
       return {
         ...current,
         selectedMonthDays: {
@@ -124,49 +130,52 @@ const Custom = ({customData, setCustomData}) => {
                     <h2 className="text-2xl font-bold text-gray-800 mb-6 flex items-center">
                       <FiClock className="mr-2" />
                        Customize your reminder
-                    </h2>
-            
-                    <div className="space-y-6">
-                    <div>
-                      <label className="block text-gray-700 font-medium mb-2">
-                        Select Month
-                      </label>
-                      <div className="grid grid-cols-7 gap-2 md:grid-cols-10 lg:grid-cols-12">
-                        {customMonths.map((month) => (
-                          <button
-                            key={month}
-                            onClick={() => handleMonthSelection(month)}
-                            className={`p-2 rounded-md transition-colors w-24 truncate text-ellipsis overflow-hidden whitespace-nowrap ${
-                              customData.selectedMonth.value.includes(month)
-                                ? "bg-blue-500 text-white"
-                                : "bg-gray-100 hover:bg-gray-200 text-gray-700"
-                            }`}
-                          >
-                            {month}
-                          </button>
-                        ))}
+                    </h2>            
+                  <div className="space-y-6">
+                      <div>
+                        <label className="block text-gray-700 font-medium mb-4">
+                          Select Month
+                        </label>
+                        <div className="grid grid-cols-3 gap-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8">
+                          {customMonths.map((month) => (
+                            <button
+                              key={month}
+                              onClick={() => handleMonthSelection(month)}
+                              className={`p-2 rounded-lg transition-colors truncate text-sm font-medium text-center ${
+                                customData.selectedMonth.value.includes(month)
+                                  ? "bg-blue-500 text-white"
+                                  : "bg-gray-100 hover:bg-gray-200 text-gray-700"
+                              }`}
+                            >
+                              {month}
+                            </button>
+                          ))}
+                        </div>
                       </div>
-                    </div> 
                     <div>
-                      <label className="block text-gray-700 font-medium mb-2">
-                        Select Days of Month
-                      </label>
-                      <label htmlFor="type-selector">Select Type:</label>
+                      <div className="flex justify-between">
+                        <label className="block text-gray-700 font-medium mb-2">
+                          Select Days of Month
+                        </label>
+                        <div className="flex gap-4 items-center">
+                          <label htmlFor="type-selector">Select Type:</label>
                           <select id="month-day-type-selector" value={selectedMonthDays.type} onChange={(e) => handleTypeChange("selectedMonthDays", e)}>
                             <option value="specific">Specific</option>
                             <option value="range">Range</option>
                             <option value="frequency">Frequency</option> 
                             <option value="list">List</option>       
-                          </select>                          
-                      <div className="grid grid-cols-7 gap-2 md:grid-cols-10 lg:grid-cols-12">
+                          </select>
+                        </div>                                              
+                      </div>                         
+                      <div className="grid grid-cols-4 gap-2 md:grid-cols-10 lg:grid-cols-12">
                         {customDaysInMonth.map((day) => (
                           <button
                             key={day}
                             onClick={() => handleMonthDaySelection(day)}
-                            className={`p-2 rounded-md transition-colors ${
+                            className={`p-2 rounded-md transition-colors ${                              
                               customData.selectedMonthDays.value.includes(day)
                                 ? "bg-blue-500 text-white"
-                                : "bg-gray-100 hover:bg-gray-200 text-gray-700"
+                                : "bg-gray-100 hover:bg-gray-200 text-gray-700"                             
                             }`}
                           >
                             {day}
@@ -175,14 +184,18 @@ const Custom = ({customData, setCustomData}) => {
                       </div>
                     </div>
                     <div className="space-y-2">
-                      <label className="text-gray-700 font-medium">Select Week Days</label>
-                      <label htmlFor="type-selector">Select Type:</label>
+                      <div className="flex justify-between">
+                        <label className="text-gray-700 font-medium">Select Week Days</label>
+                        <div className="flex gap-4 items-center">
+                          <label htmlFor="type-selector">Select Type:</label>
                           <select id="month-day-type-selector" value={selectedWeekDays.type} onChange={(e) => handleTypeChange("selectedWeekDays", e)}>
                             <option value="specific">Specific</option>
                             <option value="range">Range</option>
                             <option value="frequency">Frequency</option> 
                             <option value="list">List</option>       
                           </select>
+                        </div>
+                      </div>                      
                       <div className="flex flex-wrap md:grid-cols-4 gap-3">
                         {Object.keys(customData.selectedWeekDays.value).map((day) => (
                           <div key={day} className="flex items-center space-x-2">
@@ -209,7 +222,7 @@ const Custom = ({customData, setCustomData}) => {
                               <option value="range">Range</option>
                               <option value="frequency">Frequency</option>        
                             </select>
-                          </div>                          
+                          </div>
                           {selectedHour.type === "specific" && (
                             <div className="flex items-center space-x-2">
                               <label htmlFor="value">Value:</label>
@@ -219,7 +232,7 @@ const Custom = ({customData, setCustomData}) => {
                                 onChange={(e) => handleInputChange("selectedHour", e)}
                                 value={customData.selectedHour.value}
                                 className="w-24 border border-black text-blue-500 border-black-300 rounded focus:ring-blue-500"
-                              />                            
+                              />
                             </div>      
                           )}
                           {selectedHour.type === "range" && (
@@ -319,7 +332,7 @@ const Custom = ({customData, setCustomData}) => {
                   </div>
               </div>    
             </div>
-  );
+          );
         
 };
 

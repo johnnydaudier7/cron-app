@@ -6,17 +6,18 @@ import { daysInMonth, hours, minutes } from "../../utils/timeDb";
 const Monthly = ({monthlyData, setMonthlyData}) => {
   const {selectedDays, selectedHour, selectedMinute} = monthlyData;  
  
-  const monthlyDays = daysInMonth;
+  const monthlyDays = daysInMonth.map((day) => String(day));
   const monthlyMinutes = minutes;
   const monthlyHours = hours;
 
   const handleDaySelection = (day) => {
+    day.toString()
     setMonthlyData((current) => {
         const currentDays = 
         current.selectedDays.includes(day) 
         ? current.selectedDays.filter(d => d !== day)
         : [...current.selectedDays, day].sort((a, b) => a - b)
-
+       
         return{
           ...current,
           selectedDays: currentDays,
@@ -57,7 +58,7 @@ const Monthly = ({monthlyData, setMonthlyData}) => {
                   key={day}
                   onClick={() => handleDaySelection(day)}
                   className={`p-2 rounded-md transition-colors ${
-                    selectedDays.includes(day)
+                    monthlyData.selectedDays.includes(day)
                       ? "bg-blue-500 text-white"
                       : "bg-gray-100 hover:bg-gray-200 text-gray-700"
                   }`}

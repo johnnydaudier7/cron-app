@@ -1,8 +1,5 @@
 import {FiBell} from 'react-icons/fi'
 import { hours, minutes } from "../../utils/timeDb";
-import { Cron } from "../../utils/cron";
-import { useCronContext } from "../../context/CronContext";
-
 
 const Weekly = ({weeklyData, setWeeklyData}) => {  
   
@@ -91,6 +88,7 @@ const Weekly = ({weeklyData, setWeeklyData}) => {
                 <div key={day} className="flex items-center space-x-2">
                   <input
                     type="checkbox"
+                    checked={selectedDays[day]}
                     id={day}                                                   
                     onChange={() => handleDayChange(day)}
                     className="w-4 h-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500"

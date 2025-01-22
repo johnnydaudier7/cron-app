@@ -44,7 +44,7 @@ export const generateCronString = (obj) => {
 
         switch (obj.type) {
             case "specific":
-                return obj.value === "" ? "*" : obj.value;
+                return obj.value === "" ? "*" : (Number(obj.value) < 0 || Number(obj.value) > 59 ? String(0) : obj.value);
             case "range":
                 return `${obj.start}-${obj.end}`;
             case "frequency":

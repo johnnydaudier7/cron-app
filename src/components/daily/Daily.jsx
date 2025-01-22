@@ -28,8 +28,7 @@ const Daily = ({dailyData, setDailyData}) => {
                   <div className="flex items-center space-x-2">
                     <FiBell className="text-blue-500 text-2xl" />
                     <h2 className="text-2xl font-bold text-gray-800">Set a daily task</h2>
-                  </div>          
-                  
+                  </div>
                   <div className="space-y-4">
                     <div className="flex flex-col space-y-2">
                       <div>
@@ -67,9 +66,7 @@ const Daily = ({dailyData, setDailyData}) => {
                         </select>
                       </div>
                     </div>                  
-                  </div>          
-                    
-                              
+                  </div>      
                 </div>
               </div>
             );
