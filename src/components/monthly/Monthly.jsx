@@ -2,42 +2,40 @@ import React from "react";
 import { FiClock } from "react-icons/fi";
 import { daysInMonth, hours, minutes } from "../../utils/timeDb";
 
+const Monthly = ({ monthlyData, setMonthlyData }) => {
+  const { selectedHour, selectedMinute } = monthlyData;
 
-const Monthly = ({monthlyData, setMonthlyData}) => {
-  const {selectedDays, selectedHour, selectedMinute} = monthlyData;  
- 
   const monthlyDays = daysInMonth.map((day) => String(day));
   const monthlyMinutes = minutes;
   const monthlyHours = hours;
 
   const handleDaySelection = (day) => {
-    day.toString()
+    day.toString();
     setMonthlyData((current) => {
-        const currentDays = 
-        current.selectedDays.includes(day) 
-        ? current.selectedDays.filter(d => d !== day)
-        : [...current.selectedDays, day].sort((a, b) => a - b)
-       
-        return{
-          ...current,
-          selectedDays: currentDays,
-        }
-    })    
+      const currentDays = current.selectedDays.includes(day)
+        ? current.selectedDays.filter((d) => d !== day)
+        : [...current.selectedDays, day].sort((a, b) => a - b);
+
+      return {
+        ...current,
+        selectedDays: currentDays,
+      };
+    });
   };
   const handleMinuteSelection = (event) => {
     const value = event.target.value;
-    setMonthlyData((current)=> ({
+    setMonthlyData((current) => ({
       ...current,
       selectedMinute: value,
-    }))
-  }
+    }));
+  };
   const handleHourSelection = (event) => {
     const value = event.target.value;
     setMonthlyData((current) => ({
       ...current,
       selectedHour: value,
-    }))
-  }
+    }));
+  };
 
   return (
     <div className="max-w-4xl mx-auto p-6 bg-white rounded-lg shadow-lg">
@@ -105,9 +103,9 @@ const Monthly = ({monthlyData, setMonthlyData}) => {
                 ))}
               </select>
             </div>
-          </div>          
+          </div>
         </div>
-      </div>    
+      </div>
     </div>
   );
 };
