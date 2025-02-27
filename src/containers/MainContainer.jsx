@@ -353,7 +353,7 @@ export const MainContainer = () => {
               <div
                 key={exp.id}
                 onClick={() => handleSelect(exp.id)}
-                className={`flex items-center justify-between gap-4 mt-6 w-full rounded-lg border p-4 shadow-sm transition-shadow cursor-pointer 
+                className={`flex items-center justify-between gap-4 mt-6 w-full rounded-2xl border p-5 shadow-md transition-all cursor-pointer border-gray-200 bg-gray-50 hover:shadow-lg 
                         ${
                           selectedId === exp.id
                             ? "border-blue-500 bg-blue-50 shadow-md"
@@ -361,24 +361,24 @@ export const MainContainer = () => {
                         }`}
               >
                 <div className="flex-1">
-                  <p className="text-gray-600 font-semibold text-sm">
+                  <p className="text-gray-500 font-semibold text-sm uppercase tracking-wide">
                     Generated Expression:
                   </p>
-                  <p className="text-gray-800 font-medium text-base">
+                  <p className="text-gray-900 font-medium text-lg">
                     {exp.expression}
                   </p>
                 </div>
-                <div className="flex gap-4 items-center">
-                  <span
-                    className="cursor-pointer text-red-500 hover:text-red-700"
+                <div className="flex items-center">
+                  <button
+                    className="p-2 rounded-full bg-red-100 text-red-500 hover:bg-red-500 hover:text-white transition-all"
                     onClick={(evt) => {
                       evt.stopPropagation();
                       deleteExpression(exp.id);
                     }}
                     title="Delete"
                   >
-                    <FaTrash size={20} />
-                  </span>
+                    <FaTrash size={18} />
+                  </button>
                 </div>
               </div>
             ))}
