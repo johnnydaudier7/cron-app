@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { NavLink, useLocation } from "react-router-dom";
-
+import { useLocation } from "react-router-dom";
+import NavDisplay from "./NavDisplay";
 const Nav = () => {
   const [activeTab, setActiveTab] = useState("daily");
 
@@ -23,24 +23,11 @@ const Nav = () => {
   };
 
   return (
-    <div className="cron-scheduler">
-      <nav className="tabs flex border-b border-gray-700 mb-5">
-        {tabs.map((tab) => (
-          <NavLink
-            to={tab}
-            key={tab}
-            onClick={() => handleTabClick(tab)}
-            className={`py-3 px-5 cursor-pointer ${
-              activeTab === tab
-                ? "border-b-2 border-blue-700 font-bold"
-                : "border-none font-normal"
-            }`}
-          >
-            {tab}
-          </NavLink>
-        ))}
-      </nav>
-    </div>
+    <NavDisplay
+      tabs={tabs}
+      activeTab={activeTab}
+      handleTabClick={handleTabClick}
+    />
   );
 };
 export default Nav;
